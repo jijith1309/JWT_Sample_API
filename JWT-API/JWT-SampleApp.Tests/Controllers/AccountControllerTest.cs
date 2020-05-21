@@ -64,7 +64,7 @@ namespace JWT_SampleApp.Tests.Controllers
             int userId = 5;
             AccountController accountController = new AccountController();
             // Act
-            IHttpActionResult result = accountController.Edituser(model, userId);
+            IHttpActionResult result = accountController.Edituser(model);
             // Assert
             var contentResult = result as OkNegotiatedContentResult<ResponseModel<bool>>;
             Assert.IsNotNull(contentResult);
