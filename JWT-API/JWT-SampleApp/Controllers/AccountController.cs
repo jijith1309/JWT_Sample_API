@@ -32,7 +32,7 @@ namespace JWT_SampleApp.Controllers
                 UserAuthenticationService service = new UserAuthenticationService();
                 model.Password = RC4.Encrypt("password", model.Password);
                 var data = service.Login(model.LoginName, model.Password);
-                if (data != null)
+                if (data != null&&data.Token!=null)
                 {
                     ResponseModel<LoginResponseModel> response = new ResponseModel<LoginResponseModel>();
                     response.Data = data;

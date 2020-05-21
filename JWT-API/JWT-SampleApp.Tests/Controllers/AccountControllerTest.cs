@@ -14,7 +14,7 @@ namespace JWT_SampleApp.Tests.Controllers
         {
             // Arrange
             LoginModel model = new LoginModel();
-            model.LoginName = "jijith1309";
+            model.LoginName = "tesr";
             model.Password = "a";
             AccountController accountController = new AccountController();
             // Act
