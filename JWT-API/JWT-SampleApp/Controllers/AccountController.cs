@@ -83,16 +83,20 @@ namespace JWT_SampleApp.Controllers
         [ValidateModel]
         [HttpPost]
         [Route("Edit")]
-        public IHttpActionResult Edituser(RegisterModel model,int userId)
+        public IHttpActionResult Edituser(RegisterModel model)
         {
             try
             {
                 UserAuthenticationService service = new UserAuthenticationService();
+                if (model.UserId == 0)
+                {
+                    return BadRequest("UserId is needed");
+                }
                 if (!string.IsNullOrEmpty(model.Password))
                 {
                     model.Password = RC4.Encrypt("password", model.Password);
                 }
-                var data = service.EditUser(model, userId);
+                var data = service.EditUser(model, model.UserId);
                 if (data)
                 {
                     ResponseModel<bool> response = new ResponseModel<bool>();
