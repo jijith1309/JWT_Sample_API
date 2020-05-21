@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class create_appuser_table : DbMigration
+    public partial class create_app_user : DbMigration
     {
         public override void Up()
         {
@@ -12,12 +12,13 @@
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
-                        Username = c.String(),
-                        Password = c.String(),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        EmailId = c.String(),
-                        PhoneNumber = c.String(),
+                        Username = c.String(unicode: false),
+                        Password = c.String(unicode: false),
+                        FirstName = c.String(unicode: false),
+                        LastName = c.String(unicode: false),
+                        EmailId = c.String(unicode: false),
+                        PhoneNumber = c.String(unicode: false),
+                        CreatedOn = c.DateTime(nullable: false, precision: 0),
                     })
                 .PrimaryKey(t => t.UserId);
             

@@ -14,11 +14,10 @@ namespace JWT_SampleApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
-        private readonly dynamic response;
-
+        
         public AccountController()
         {
-            response = new ExpandoObject();
+           
         }
 
         #region login
@@ -31,10 +30,14 @@ namespace JWT_SampleApp.Controllers
             try
             {
                 UserAuthenticationService service = new UserAuthenticationService();
+                model.Password = RC4.Encrypt("password", model.Password);
                 var data = service.Login(model.LoginName, model.Password);
                 if (data != null)
                 {
-                    return Ok(data);
+                    ResponseModel<LoginResponseModel> response = new ResponseModel<LoginResponseModel>();
+                    response.Data = data;
+                    response.Message = "Successfully logged in";
+                    return Ok(response);
                 }
                 return BadRequest("Error while login");
             }
@@ -60,9 +63,10 @@ namespace JWT_SampleApp.Controllers
                 var data = service.Register(model);
                 if (data)
                 {
-                    response.IsError = false;
+                    ResponseModel<bool> response = new ResponseModel<bool>();
+                    response.Data = true;
                     response.Message = "Successfully created new user";
-                    return Ok(data);
+                    return Ok(response);
                 }
                 return BadRequest("Error while login");
             }
@@ -84,13 +88,18 @@ namespace JWT_SampleApp.Controllers
             try
             {
                 UserAuthenticationService service = new UserAuthenticationService();
-                model.Password = RC4.Encrypt("password", model.Password);
+                if (!string.IsNullOrEmpty(model.Password))
+                {
+                    model.Password = RC4.Encrypt("password", model.Password);
+                }
                 var data = service.EditUser(model, userId);
                 if (data)
                 {
-                    response.IsError = false;
+                    ResponseModel<bool> response = new ResponseModel<bool>();
+                    response.Data = true;
+                    
                     response.Message = "Successfully updated user";
-                    return Ok(data);
+                    return Ok(response);
                 }
                 return BadRequest("Error while updating user");
             }
@@ -106,19 +115,21 @@ namespace JWT_SampleApp.Controllers
         [TokenAuthorise]
         [HttpGet]
         [Route("UserDetails")]
-        public IHttpActionResult ViewUser()
+        public IHttpActionResult ViewUser(int userId)
         {
             try
             {
                 UserAuthenticationService service = new UserAuthenticationService();
                
-                int newUserId = Convert.ToInt32(this.User.GetClaimValue("UserId"));
-                var data = service.ViewUser(newUserId);
+                //int newUserId = Convert.ToInt32(this.User.GetClaimValue("UserId"));
+                var data = service.ViewUser(userId);
                 if (data != null)
                 {
-                    response.IsError = false;
+                    ResponseModel<RegisterModel> response = new ResponseModel<RegisterModel>();
+                    response.Data = data;
+
                     response.Message = "Successfully retrieved user details";
-                    return Ok(data);
+                    return Ok(response);
                 }
                 return BadRequest("Unable to find user" );
             }

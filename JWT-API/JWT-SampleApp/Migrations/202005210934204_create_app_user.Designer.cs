@@ -7,13 +7,13 @@ namespace JWT_SampleApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class create_appuser_table : IMigrationMetadata
+    public sealed partial class create_app_user : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(create_appuser_table));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(create_app_user));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005170658227_create_appuser_table"; }
+            get { return "202005210934204_create_app_user"; }
         }
         
         string IMigrationMetadata.Source

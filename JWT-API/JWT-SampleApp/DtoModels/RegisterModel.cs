@@ -28,5 +28,7 @@ namespace JWT_SampleApp.DtoModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
         public string EmailId { get; set; }
         public string PhoneNumber { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

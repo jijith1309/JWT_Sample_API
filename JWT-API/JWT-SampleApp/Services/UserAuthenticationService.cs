@@ -50,12 +50,14 @@ namespace JWT_SampleApp.Services
                     user.Password = model.Password;
                     user.PhoneNumber = model.PhoneNumber;
                     user.Username = model.Username;
+                    user.CreatedOn = DateTime.Now;
                     //Check user exists in db
                     var appUser = dbContext.ApplicationUser.Where(a => a.Username == model.Username || a.EmailId == model.EmailId).FirstOrDefault();
                     if (appUser != null)
                     {
                         throw new Exception("This username or email id already exists");
                     }
+                    //dbContext.Set<ApplicationUser>().Add(user);
                     dbContext.ApplicationUser.Add(user);
                     dbContext.SaveChanges();
                     return true;
@@ -74,7 +76,7 @@ namespace JWT_SampleApp.Services
                 using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
                 {
                     var user = dbContext.ApplicationUser.Where(a => a.UserId == userId).FirstOrDefault();
-                    if (user != null)
+                    if (user == null)
                     {
                         throw new Exception("This userId does not exist");
                     }
@@ -100,12 +102,13 @@ namespace JWT_SampleApp.Services
         {
             try
             {
-                RegisterModel model = new RegisterModel();
+                RegisterModel model = null;
                 using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
                 {
                     var user = dbContext.ApplicationUser.Where(a => a.UserId == userId).FirstOrDefault();
                     if (user != null)
                     {
+                        model = new RegisterModel();
                         model.UserId = user.UserId;
                         model.Username = user.Username;
                         model.PhoneNumber = user.PhoneNumber;
@@ -113,6 +116,7 @@ namespace JWT_SampleApp.Services
                         model.LastName = user.LastName;
                         model.EmailId = user.EmailId;
                         model.Password = RC4.Decrypt("password", user.Password);
+                        model.CreatedOn = user.CreatedOn;
                     }
 
                 }
