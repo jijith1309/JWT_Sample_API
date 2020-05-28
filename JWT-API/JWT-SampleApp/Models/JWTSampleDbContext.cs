@@ -22,7 +22,17 @@ namespace JWT_SampleApp.Models
             ////modelBuilder.HasDefaultSchema(ECommerce.Common.ConfigurationReader.ConfigurationReader.DefaultSchema);
             //modelBuilder.Configurations.Add(new ApplicationUserEntityConfiguration());
 
+           // modelBuilder.Entity<Product>()
+           //.Property(p => p.Price).HasPrecision()
+
+
         }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
+        public DbSet<CartItems> CartItems { get; set; }
+      
+        
+
     }
 }
