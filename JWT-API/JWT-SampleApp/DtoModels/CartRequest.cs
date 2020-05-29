@@ -11,7 +11,7 @@ namespace JWT_SampleApp.DtoModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Product is required")]
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        //[MinLength(0)]
+        [Range(1, int.MaxValue, ErrorMessage = "The Quantity must be greater than 0")]
         public int Quantity { get; set; }
         public int UserId { get; set; }
 

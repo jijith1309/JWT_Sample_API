@@ -44,6 +44,14 @@ namespace JWT_SampleApp.Services
             {
                 using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
                 {
+                    ProductService productService = new ProductService();
+                    int existingQty = productService.GetExistingProductQuantity(productId);
+
+                    if (qty > existingQty)
+                    {
+                        throw new Exception("Not adequate quantity available.Please reduce quantity");
+                    }
+
                     int cartId = GetUserCart(userId);
                     if (cartId == 0)
                     {

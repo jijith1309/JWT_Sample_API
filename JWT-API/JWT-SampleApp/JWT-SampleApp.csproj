@@ -202,6 +202,8 @@
     <Compile Include="DtoModels\CartRequest.cs" />
     <Compile Include="DtoModels\LoginModel.cs" />
     <Compile Include="DtoModels\LoginResponseModel.cs" />
+    <Compile Include="DtoModels\Order\OrderDetailsModel.cs" />
+    <Compile Include="DtoModels\Order\OrderModel.cs" />
     <Compile Include="DtoModels\ProductModel.cs" />
     <Compile Include="DtoModels\RegisterModel.cs" />
     <Compile Include="DtoModels\ResponseModel.cs" />
@@ -218,6 +220,10 @@
     <Compile Include="Migrations\202005280537310_product_cart_tables_added.designer.cs">
       <DependentUpon>202005280537310_product_cart_tables_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005290901169_order_tables_added.cs" />
+    <Compile Include="Migrations\202005290901169_order_tables_added.designer.cs">
+      <DependentUpon>202005290901169_order_tables_added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
@@ -228,6 +234,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CartService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\Rc4.cs" />
     <Compile Include="Services\UserAuthenticationService.cs" />
@@ -323,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005280537310_product_cart_tables_added.resx">
       <DependentUpon>202005280537310_product_cart_tables_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005290901169_order_tables_added.resx">
+      <DependentUpon>202005290901169_order_tables_added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

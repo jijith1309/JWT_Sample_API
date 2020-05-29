@@ -16,15 +16,65 @@ namespace JWT_SampleApp.Services
                 {
                     model = dbContext.Products.Where(a => a.ProductId == productId).Select(a => new ProductModel
                     {
-                        ProductId = a.ProductId
+                        ProductId = a.ProductId,
+                        Quantity = a.Quantity
                     }).FirstOrDefault();
                 }
                 return model;
             }
-
             catch (Exception ex)
             {
-                throw new Exception("Error in GetProductDetails: "+ex.Message);
+                throw new Exception("Error in GetProductDetails: " + ex.Message);
+            }
+        }
+
+        public int GetExistingProductQuantity(int productId)
+        {
+            using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
+            {
+                return dbContext.Products.Where(a => a.ProductId == productId).Select(a => a.Quantity).FirstOrDefault();
+            }
+        }
+        public bool ReduceProductQuantity(int productId, int itemsCount)
+        {
+            try
+            {
+                using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
+                {
+                    var product = dbContext.Products.Where(a => a.ProductId == productId).FirstOrDefault();
+                    if (product != null)
+                    {
+                        product.Quantity = product.Quantity - itemsCount;
+                        dbContext.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in ReduceProductQuantity: " + ex.Message);
+            }
+        }
+        public bool AddProductQuantity(int productId, int itemsCount)
+        {
+            try
+            {
+                using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
+                {
+                    var product = dbContext.Products.Where(a => a.ProductId == productId).FirstOrDefault();
+                    if (product != null)
+                    {
+                        product.Quantity = product.Quantity + itemsCount;
+                        dbContext.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in AddProductQuantity: " + ex.Message);
             }
         }
     }
