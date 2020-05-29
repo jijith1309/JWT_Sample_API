@@ -1,6 +1,7 @@
 ﻿using JWT_SampleApp.DtoModels;
 using JWT_SampleApp.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace JWT_SampleApp.Services
@@ -25,6 +26,31 @@ namespace JWT_SampleApp.Services
             catch (Exception ex)
             {
                 throw new Exception("Error in GetProductDetails: " + ex.Message);
+            }
+        }
+        public List<ProductModel> GetProductList()
+        {
+            try
+            {
+               
+                using (JWTSampleDbContext dbContext = new JWTSampleDbContext())
+                {
+                  return dbContext.Products.Select(a => new ProductModel
+                    {
+                        ProductId = a.ProductId,
+                        Quantity = a.Quantity,
+                        Category=a.Category,
+                        Description=a.Description,
+                        Price=a.Price,
+                        Name=a.Name,
+                        ProductImagePath=a.ProductImagePath
+                    }).ToList();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GetProductList: " + ex.Message);
             }
         }
 

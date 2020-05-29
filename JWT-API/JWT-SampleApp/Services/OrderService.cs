@@ -135,6 +135,20 @@ namespace JWT_SampleApp.Services
                     if (order != null)
                     {
                         order.OrderStatus = OrderStatus.Cancelled.ToString();
+
+                        //Move products to products table
+                        var orderDetailsList = GetOrderDetailsList(orderId);
+                        if(orderDetailsList!=null& orderDetailsList.Count > 0)
+                        {
+                            foreach (var item in orderDetailsList)
+                            {
+                                var product = dbContext.Products.Where(a => a.ProductId == item.ProductId).FirstOrDefault();
+                                if (product != null)
+                                {
+                                    product.Quantity = product.Quantity + item.Quantity;
+                                }
+                            }
+                        }
                         dbContext.SaveChanges();
                         return true;
                     }

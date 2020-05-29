@@ -40,6 +40,25 @@ namespace JWT_SampleApp.Tests.Controllers
             Assert.IsNotNull(contentResult);
             Assert.IsTrue(contentResult.Content.Data);
         }
+        [TestMethod]
+        public void EditCart()
+        {
+            // Arrange
+            CartRequest request = new CartRequest();
+            request.ProductId = 1;
+            request.Quantity = 1;
+            request.UserId = 5;
+
+            ShoppingCartController controller = new ShoppingCartController();
+            // Act
+            IHttpActionResult result = controller.EditCart(request);
+            // Assert
+            var contentResult = result as OkNegotiatedContentResult<ResponseModel<bool>>;
+
+            // Assert
+            Assert.IsNotNull(contentResult);
+            Assert.IsTrue(contentResult.Content.Data);
+        }
 
         [TestMethod]
         public void DeleteCartItem()

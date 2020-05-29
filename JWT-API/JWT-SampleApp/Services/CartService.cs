@@ -69,7 +69,7 @@ namespace JWT_SampleApp.Services
                     CartItems _cartItem = CheckProductExistsIncart(productId, cartId);
                     if (_cartItem != null)
                     {
-                        _cartItem.Quantity += 1;
+                        _cartItem.Quantity= qty;
                         //unitOfWork.Repository<CartItems>().Update(_cartItem);
                         dbContext.CartItems.Attach(_cartItem);
                         dbContext.Entry(_cartItem).State = EntityState.Modified;
